@@ -1,103 +1,91 @@
-import Image from "next/image";
+import { SearchForm } from '@/components/search-form';
+import { Globe, Calendar, MapPin, Filter } from 'lucide-react';
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="min-h-screen bg-gradient-to-br from-background to-muted">
+      <div className="container mx-auto px-4 py-8">
+        <header className="text-center mb-12">
+          <div className="relative mb-8 py-4">
+            {/* Background glow effect */}
+            <div className="absolute inset-0 blur-3xl opacity-30">
+              <h1 className="text-4xl md:text-6xl font-black bg-gradient-to-r from-blue-600 via-purple-600 to-teal-600 bg-clip-text text-transparent py-2">
+                Travel Aggregator
+              </h1>
+            </div>
+            {/* Main title */}
+            <h1 className="relative text-4xl md:text-6xl lg:text-7xl font-black tracking-tight leading-tight py-2">
+              <span className="inline-block bg-gradient-to-r from-blue-600 via-purple-600 to-teal-600 bg-clip-text text-transparent animate-pulse">
+                Travel
+              </span>
+              <span className="mx-2 md:mx-4 text-2xl md:text-4xl lg:text-5xl">✈️</span>
+              <span className="inline-block bg-gradient-to-r from-teal-600 via-emerald-600 to-blue-600 bg-clip-text text-transparent">
+                Aggregator
+              </span>
+            </h1>
+            {/* Decorative elements */}
+            <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-blue-400 to-teal-400 rounded-full opacity-60"></div>
+            <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-24 h-1 bg-gradient-to-r from-purple-400 to-emerald-400 rounded-full opacity-60"></div>
+          </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            <span className="font-medium text-foreground">Discover</span> events, exhibitions, attractions, and more happening during your visit to
+            <span className="font-medium bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent"> any city</span>
+          </p>
+
+          {/* Subtle animation indicators */}
+          <div className="flex justify-center items-center mt-6 space-x-3 opacity-60">
+            <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
+            <div className="w-2 h-2 bg-purple-500 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+            <div className="w-2 h-2 bg-teal-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+          </div>
+        </header>
+
+        <div className="max-w-3xl mx-auto">
+          <div className="bg-card rounded-xl shadow-lg p-6 md:p-8">
+            <SearchForm />
+          </div>
+
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <Feature
+              icon={<Globe className="h-8 w-8" />}
+              title="Any City"
+              description="Search events worldwide with intelligent geocoding"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            <Feature
+              icon={<Calendar className="h-8 w-8" />}
+              title="Date Range"
+              description="Find happenings during your exact travel dates"
+            />
+            <Feature
+              icon={<MapPin className="h-8 w-8" />}
+              title="Multiple Sources"
+              description="Aggregated from Eventbrite, Meetup, and more"
+            />
+            <Feature
+              icon={<Filter className="h-8 w-8" />}
+              title="Smart Filters"
+              description="Filter by category, price, distance, and time"
+            />
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+        <footer className="text-center mt-16 text-sm text-muted-foreground">
+          <p>Data aggregated from multiple sources • Results may vary by location</p>
+        </footer>
+      </div>
+    </div>
+  );
+}
+
+function Feature({ icon, title, description }: { icon: React.ReactNode; title: string; description: string }) {
+  return (
+    <div className="text-center">
+      <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary/10 text-primary mb-4">
+        {icon}
+      </div>
+      <h3 className="font-semibold mb-2">{title}</h3>
+      <p className="text-sm text-muted-foreground">{description}</p>
     </div>
   );
 }
