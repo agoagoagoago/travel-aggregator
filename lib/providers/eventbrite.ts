@@ -8,7 +8,9 @@ export class EventbriteProvider extends BaseProvider {
   constructor() {
     super();
     this.apiKey = process.env.EVENTBRITE_API_KEY;
-    this.isEnabled = !!this.apiKey;
+    // Eventbrite Search API was deprecated in 2019 - disabling for now
+    this.isEnabled = false; // !!this.apiKey;
+    console.log(`[${this.name}] Provider disabled - Eventbrite Search API is deprecated since 2019`);
   }
 
   async fetchItems(params: {
