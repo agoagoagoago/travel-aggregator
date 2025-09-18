@@ -45,14 +45,14 @@ export class EventbriteProvider extends BaseProvider {
           searchParams.append('location.longitude', ((params.bbox[0] + params.bbox[2]) / 2).toString());
         }
 
-        const response = await this.fetchWithRetry(
-          `https://www.eventbriteapi.com/v3/events/search/?${searchParams}`,
-          {
-            headers: {
-              'Accept': 'application/json',
-            },
-          }
-        );
+        const url = `https://www.eventbriteapi.com/v3/events/search?${searchParams}`;
+        console.log(`[${this.name}] Calling API: ${url.replace(this.apiKey, 'HIDDEN')}`);
+
+        const response = await this.fetchWithRetry(url, {
+          headers: {
+            'Accept': 'application/json',
+          },
+        });
 
         if (!response.ok) {
           throw new Error(`Eventbrite API error: ${response.statusText}`);
