@@ -92,7 +92,23 @@ export class OpenTripMapProvider extends BaseProvider {
             }
 
             // Get detailed info for highly rated places
-            let detailInfo: any = {};
+            let detailInfo: {
+              name?: string;
+              wikipedia_extracts?: { text?: string };
+              info?: { descr?: string };
+              address?: {
+                city?: string;
+                county?: string;
+                country?: string;
+                postcode?: string;
+                state?: string;
+                house_number?: string;
+                road?: string;
+              };
+              otm?: string;
+              wikipedia?: string;
+              preview?: { source?: string };
+            } = {};
             if (place.rate >= 5 && place.xid) {
               try {
                 const detailResponse = await this.fetchWithRetry(

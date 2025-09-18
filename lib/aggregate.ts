@@ -122,7 +122,6 @@ export function normalize(
 // Deduplicate items based on similarity
 export function dedupe(items: NormalizedItem[]): NormalizedItem[] {
   const uniqueItems: NormalizedItem[] = [];
-  const seen = new Set<string>();
 
   for (const item of items) {
     let isDuplicate = false;

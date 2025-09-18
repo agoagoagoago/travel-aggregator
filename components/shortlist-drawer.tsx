@@ -1,15 +1,16 @@
 'use client';
 
-import { Calendar, Download, Heart, Share2, Trash2, FileText } from 'lucide-react';
+import { Calendar, Heart, Trash2, FileText, Share2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Card } from '@/components/ui/card';
+import { ShortlistItem } from '@/lib/types';
 
 interface ShortlistDrawerProps {
   shortlist: {
-    items: any[];
+    items: ShortlistItem[];
     removeItem: (id: string) => void;
     clearAll: () => void;
     exportToICS: () => void;
@@ -70,7 +71,7 @@ export function ShortlistDrawer({ shortlist }: ShortlistDrawerProps) {
         ) : (
           <>
             <div className="mt-6 space-y-4 max-h-[60vh] overflow-y-auto">
-              {shortlist.items.map(({ id, item, addedAt }) => (
+              {shortlist.items.map(({ id, item }) => (
                 <Card key={id} className="p-4">
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex-1">

@@ -3,6 +3,7 @@ import { providers } from '@/lib/providers';
 import { normalize, dedupe, rank, filterByDateRange } from '@/lib/aggregate';
 import { geocodeCity } from '@/lib/geocoding';
 import { searchParamsSchema } from '@/lib/validation';
+import { HappenCategory } from '@/lib/types';
 import { z } from 'zod';
 
 export async function GET(req: NextRequest) {
@@ -102,14 +103,14 @@ export async function GET(req: NextRequest) {
 }
 
 // Mock data for demonstration when no providers are configured
-function getMockItems(city: string, startISO: string, endISO: string) {
+function getMockItems(city: string, startISO: string, _endISO: string) {
   return [
     {
       externalId: 'mock-1',
       source: 'mock',
       title: `${city} City Museum`,
       description: 'Explore the rich history and culture of the city through interactive exhibitions.',
-      category: ['attraction', 'exhibition'] as any,
+      category: ['attraction', 'exhibition'] as HappenCategory[],
       venueName: 'City Museum',
       city,
       priceMin: 15,
@@ -126,7 +127,7 @@ function getMockItems(city: string, startISO: string, endISO: string) {
       source: 'mock',
       title: `${city} Food Festival`,
       description: 'Annual food festival featuring local cuisine and international dishes.',
-      category: ['event'] as any,
+      category: ['event'] as HappenCategory[],
       startTime: startISO,
       endTime: new Date(new Date(startISO).getTime() + 8 * 60 * 60 * 1000).toISOString(),
       venueName: 'City Park',
@@ -145,7 +146,7 @@ function getMockItems(city: string, startISO: string, endISO: string) {
       source: 'mock',
       title: `${city} Walking Tour`,
       description: 'Guided walking tour through historic downtown.',
-      category: ['tour'] as any,
+      category: ['tour'] as HappenCategory[],
       startTime: new Date(new Date(startISO).getTime() + 24 * 60 * 60 * 1000).toISOString(),
       endTime: new Date(new Date(startISO).getTime() + 26 * 60 * 60 * 1000).toISOString(),
       venueName: 'Tourist Information Center',
@@ -164,7 +165,7 @@ function getMockItems(city: string, startISO: string, endISO: string) {
       source: 'mock',
       title: 'Tech Conference 2025',
       description: 'Annual technology conference with keynote speakers and workshops.',
-      category: ['seminar', 'event'] as any,
+      category: ['seminar', 'event'] as HappenCategory[],
       startTime: new Date(new Date(startISO).getTime() + 48 * 60 * 60 * 1000).toISOString(),
       endTime: new Date(new Date(startISO).getTime() + 56 * 60 * 60 * 1000).toISOString(),
       venueName: 'Convention Center',
@@ -183,7 +184,7 @@ function getMockItems(city: string, startISO: string, endISO: string) {
       source: 'mock',
       title: 'Modern Art Exhibition',
       description: 'Contemporary art exhibition featuring local and international artists.',
-      category: ['exhibition'] as any,
+      category: ['exhibition'] as HappenCategory[],
       venueName: 'Art Gallery',
       city,
       priceMin: 12,

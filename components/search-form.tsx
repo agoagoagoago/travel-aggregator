@@ -9,7 +9,6 @@ import { format } from 'date-fns';
 import { Calendar as CalendarIcon, Search, MapPin, Check, ChevronsUpDown } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Calendar } from '@/components/ui/calendar';
 import {
@@ -285,12 +284,11 @@ export function SearchForm() {
               variant={selectedCategories.includes(category.value) ? 'default' : 'outline'}
               size="sm"
               onClick={() => {
-                setSelectedCategories(prev =>
-                  prev.includes(category.value)
-                    ? prev.filter(c => c !== category.value)
-                    : [...prev, category.value]
-                );
-                setValue('categories', selectedCategories);
+                const newCategories = selectedCategories.includes(category.value)
+                  ? selectedCategories.filter(c => c !== category.value)
+                  : [...selectedCategories, category.value];
+                setSelectedCategories(newCategories);
+                setValue('categories', newCategories);
               }}
             >
               {category.label}

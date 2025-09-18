@@ -29,7 +29,7 @@ export async function geocodeCity(city: string): Promise<GeocodingResult> {
     geocodeCache.set(cacheKey, { result, timestamp: Date.now() });
 
     return result;
-  } catch (error) {
+  } catch {
     // If Google Places API key is available, try that as fallback
     if (process.env.GOOGLE_PLACES_API_KEY) {
       return geocodeWithGooglePlaces(city);
@@ -150,11 +150,11 @@ async function geocodeWithGooglePlaces(city: string): Promise<GeocodingResult> {
   ];
 
   // Extract city name from address components
-  const cityComponent = place.address_components.find((c: any) =>
+  const cityComponent = place.address_components.find((c: { types: string[], long_name: string }) =>
     c.types.includes('locality') || c.types.includes('administrative_area_level_1')
   );
 
-  const countryComponent = place.address_components.find((c: any) =>
+  const countryComponent = place.address_components.find((c: { types: string[], long_name: string }) =>
     c.types.includes('country')
   );
 

@@ -60,7 +60,7 @@ export function FilterPanel({ filters, onFiltersChange }: FilterPanelProps) {
         <Label className="text-base font-semibold mb-3 block">Sort By</Label>
         <Select
           value={filters.sortBy || 'recommended'}
-          onValueChange={(value: any) => onFiltersChange({ ...filters, sortBy: value })}
+          onValueChange={(value: 'recommended' | 'soonest' | 'closest' | 'price') => onFiltersChange({ ...filters, sortBy: value })}
         >
           <SelectTrigger>
             <SelectValue />

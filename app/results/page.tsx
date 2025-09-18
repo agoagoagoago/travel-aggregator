@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect, useCallback, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft, Download, Share2, Filter as FilterIcon, Grid2x2, List, MapIcon } from 'lucide-react';
+import { ArrowLeft, Filter as FilterIcon, Grid2x2, List, MapIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
@@ -23,20 +23,23 @@ function ResultsContent() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [filters, setFilters] = useState<SearchFilters>({});
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const [searchInfo, setSearchInfo] = useState<any>(null);
+  const [viewMode, setViewMode] = useState<'grid' | 'list' | 'map'>('grid');
+  const [searchInfo, setSearchInfo] = useState<{
+    city: string;
+    country: string;
+    displayName: string;
+    timezone: string;
+    center: [number, number];
+    bbox: [number, number, number, number];
+    startISO: string;
+    endISO: string;
+    count: number;
+    providers: string[];
+  } | null>(null);
 
   const shortlist = useShortlist();
 
-  useEffect(() => {
-    fetchResults();
-  }, [searchParams]);
-
-  useEffect(() => {
-    applyFilters();
-  }, [items, filters]);
-
-  const fetchResults = async () => {
+  const fetchResults = useCallback(async () => {
     setIsLoading(true);
     setError(null);
 
@@ -68,9 +71,9 @@ function ResultsContent() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [searchParams]);
 
-  const applyFilters = () => {
+  const applyFilters = useCallback(() => {
     let filtered = [...items];
 
     // Filter by categories
@@ -128,7 +131,15 @@ function ResultsContent() {
     }
 
     setFilteredItems(filtered);
-  };
+  }, [items, filters]);
+
+  useEffect(() => {
+    fetchResults();
+  }, [fetchResults]);
+
+  useEffect(() => {
+    applyFilters();
+  }, [applyFilters]);
 
   if (isLoading) {
     return <LoadingSkeleton />;
@@ -157,8 +168,8 @@ function ResultsContent() {
               {searchInfo?.displayName || searchInfo?.city}
             </h1>
             <p className="text-muted-foreground">
-              {new Date(searchInfo?.startISO).toLocaleDateString()} -{' '}
-              {new Date(searchInfo?.endISO).toLocaleDateString()} •{' '}
+              {searchInfo?.startISO ? new Date(searchInfo.startISO).toLocaleDateString() : ''} -{' '}
+              {searchInfo?.endISO ? new Date(searchInfo.endISO).toLocaleDateString() : ''} •{' '}
               {filteredItems.length} of {items.length} happenings
             </p>
           </div>

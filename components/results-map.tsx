@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { NormalizedItem } from '@/lib/types';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -18,7 +18,7 @@ interface ResultsMapProps {
   };
 }
 
-export function ResultsMap({ items, center, bbox, shortlist }: ResultsMapProps) {
+export function ResultsMap({ items, shortlist }: ResultsMapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
 
   // For now, we'll create a simple list view with location info

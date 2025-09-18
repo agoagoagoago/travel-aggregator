@@ -36,8 +36,8 @@ export default function Home() {
           {/* Subtle animation indicators */}
           <div className="flex justify-center items-center mt-6 space-x-3 opacity-60">
             <div className="w-2 h-2 bg-blue-500 rounded-full animate-bounce"></div>
-            <div className="w-2 h-2 bg-purple-500 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-            <div className="w-2 h-2 bg-teal-500 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+            <div className="w-2 h-2 bg-purple-500 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+            <div className="w-2 h-2 bg-teal-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
           </div>
         </header>
 

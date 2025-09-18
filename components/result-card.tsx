@@ -1,6 +1,7 @@
 'use client';
 
-import { Calendar, MapPin, DollarSign, Clock, ExternalLink, Heart, HeartOff } from 'lucide-react';
+import Image from 'next/image';
+import { Calendar, MapPin, DollarSign, ExternalLink, Heart, HeartOff } from 'lucide-react';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -57,9 +58,11 @@ export function ResultCard({ item, viewMode, shortlist }: ResultCardProps) {
     )}>
       {item.imageUrl && viewMode === 'grid' && (
         <div className="h-48 overflow-hidden bg-muted">
-          <img
+          <Image
             src={item.imageUrl}
             alt={item.title}
+            width={400}
+            height={200}
             className="h-full w-full object-cover"
             onError={(e) => {
               (e.target as HTMLImageElement).style.display = 'none';
