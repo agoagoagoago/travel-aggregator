@@ -35,6 +35,7 @@ export class EventbriteProvider extends BaseProvider {
           'start_date.range_end': params.endISO,
           'expand': 'venue,category',
           'page_size': '50',
+          'token': this.apiKey, // Add token as query parameter
         });
 
         // If we have bbox, use it for more precise location filtering
@@ -48,7 +49,6 @@ export class EventbriteProvider extends BaseProvider {
           `https://www.eventbriteapi.com/v3/events/search/?${searchParams}`,
           {
             headers: {
-              'Authorization': `Bearer ${this.apiKey}`,
               'Accept': 'application/json',
             },
           }
